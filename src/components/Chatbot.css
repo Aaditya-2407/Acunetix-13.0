@@ -1,216 +1,51 @@
-/* ===== Hide the chat container by default ===== */
-.bpChatContainer,
+/* Keep Botpress default launcher hidden so only custom UI is visible. */
+#bp-web-widget,
 #bp-web-widget-container,
-[class*="WebchatContainer"] {
+[class*='bpFab'],
+[class*='bp-widget-launcher'] {
   display: none !important;
-  visibility: hidden !important;
 }
 
-/* ===== Show chat container when body has .bp-chat-open ===== */
-body.bp-chat-open .bpChatContainer,
-body.bp-chat-open #bp-web-widget-container,
-body.bp-chat-open [class*="WebchatContainer"] {
-  display: block !important;
-  visibility: visible !important;
+.botpress-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 96px;
+  width: 400px;
+  max-width: calc(100vw - 24px);
+  height: 550px;
+  max-height: calc(100vh - 132px);
+  border: 1px solid rgba(0, 255, 200, 0.15);
+  border-radius: 1rem;
+  background: rgba(5, 5, 5, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 255, 200, 0.08), 0 8px 32px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
-/* Chat panel - glassmorphism (applied when visible) */
-body.bp-chat-open .bpChatContainer,
-body.bp-chat-open #bp-web-widget-container > div,
-body.bp-chat-open [class*="WebchatContainer"],
-body.bp-chat-open [class*="webchat"],
-body.bp-chat-open [class*="Webchat"] {
-  background: rgba(5, 5, 5, 0.88) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(0, 255, 200, 0.15) !important;
-  border-radius: 1rem !important;
-  box-shadow: 0 0 30px rgba(0, 255, 200, 0.08), 0 8px 32px rgba(0, 0, 0, 0.6) !important;
-  overflow: hidden !important;
-  z-index: 99999 !important;
+.botpress-panel.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
-/* Desktop: constrain chat panel size and position */
-body.bp-chat-open .bpChatContainer,
-body.bp-chat-open #bp-web-widget-container {
-  width: 400px !important;
-  max-width: 400px !important;
-  height: 550px !important;
-  max-height: 550px !important;
-  bottom: 90px !important;
-  right: 24px !important;
-  top: auto !important;
-  left: auto !important;
-  position: fixed !important;
-  border-radius: 1rem !important;
-  z-index: 99999 !important;
-}
-body.bp-chat-open .bpChatContainer iframe,
-body.bp-chat-open .bpChatContainer > div {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 1rem !important;
+.botpress-chat-root {
+  width: 100%;
+  height: 100%;
 }
 
-/* Mobile: smaller chat panel */
 @media (max-width: 768px) {
-  body.bp-chat-open .bpChatContainer,
-  body.bp-chat-open #bp-web-widget-container {
-    width: 85vw !important;
-    max-width: 340px !important;
-    height: 60vh !important;
-    max-height: 480px !important;
-    bottom: 80px !important;
-    right: 12px !important;
-    top: auto !important;
-    left: auto !important;
-    position: fixed !important;
-    border-radius: 1rem !important;
+  .botpress-panel {
+    right: 12px;
+    bottom: 84px;
+    width: calc(100vw - 24px);
+    max-width: 340px;
+    height: 60vh;
+    max-height: 480px;
   }
-  /* Target the inner iframe/container that Botpress uses for full-screen */
-  body.bp-chat-open .bpChatContainer iframe,
-  body.bp-chat-open .bpChatContainer > div {
-    width: 85vw !important;
-    max-width: 340px !important;
-    height: 60vh !important;
-    max-height: 480px !important;
-    border-radius: 1rem !important;
-  }
-}
-
-/* Header */
-.bpw-header-container, [class*="Header"], [class*="header-container"] {
-  background: rgba(0, 255, 200, 0.06) !important;
-  border-bottom: 1px solid rgba(0, 255, 200, 0.12) !important;
-}
-.bpw-header-container .bpw-header-title,
-.bpw-header-container .bpw-header-name,
-[class*="Header"] span, [class*="Header"] p, [class*="BotName"] {
-  color: #00ffc8 !important;
-  font-weight: 600 !important;
-  font-family: ui-monospace, SFMono-Regular, monospace !important;
-  letter-spacing: 0.05em !important;
-}
-.bpw-header-container svg, .bpw-header-container button,
-[class*="Header"] svg, [class*="Header"] button {
-  color: #00ffc8 !important;
-  fill: #00ffc8 !important;
-  opacity: 0.75 !important;
-}
-.bpw-header-container button:hover, [class*="Header"] button:hover {
-  opacity: 1 !important;
-  background: rgba(0, 255, 200, 0.1) !important;
-}
-
-/* Avatar */
-.bpw-bot-avatar, [class*="Avatar"], [class*="avatar"] {
-  background: rgba(0, 255, 200, 0.1) !important;
-  border: 1px solid rgba(0, 255, 200, 0.25) !important;
-}
-.bpw-bot-avatar svg, .bpw-bot-avatar span,
-[class*="Avatar"] svg, [class*="Avatar"] span {
-  color: #00ffc8 !important;
-  fill: #00ffc8 !important;
-}
-
-/* Chat area */
-.bpw-chat-container, [class*="MessageList"], [class*="messages"], [class*="Conversation"] {
-  background: transparent !important;
-}
-
-/* Bot messages */
-.bpw-from-bot .bpw-chat-bubble, [class*="BotMessage"],
-[class*="bot-message"], [class*="fromBot"] {
-  background: rgba(0, 255, 200, 0.07) !important;
-  border: 1px solid rgba(0, 255, 200, 0.12) !important;
-  color: #c8fff0 !important;
-  border-radius: 0.75rem !important;
-  font-family: ui-monospace, SFMono-Regular, monospace !important;
-}
-
-/* User messages */
-.bpw-from-user .bpw-chat-bubble, [class*="UserMessage"],
-[class*="user-message"], [class*="fromUser"] {
-  background: rgba(0, 255, 200, 0.16) !important;
-  border: 1px solid rgba(0, 255, 200, 0.28) !important;
-  color: #fff !important;
-  border-radius: 0.75rem !important;
-}
-
-.bpw-chat-bubble *, [class*="MessageContent"] *, [class*="bubble"] * {
-  color: inherit !important;
-}
-
-/* Composer / input */
-.bpw-composer, [class*="Composer"], [class*="composer"],
-[class*="InputArea"], [class*="footer"] {
-  background: rgba(0, 255, 200, 0.03) !important;
-  border-top: 1px solid rgba(0, 255, 200, 0.1) !important;
-}
-.bpw-composer textarea, .bpw-composer input,
-[class*="Composer"] textarea, [class*="Composer"] input,
-[class*="composer"] input, [class*="composer"] textarea {
-  background: rgba(0, 255, 200, 0.04) !important;
-  border: 1px solid rgba(0, 255, 200, 0.15) !important;
-  border-radius: 0.625rem !important;
-  color: #c8fff0 !important;
-  caret-color: #00ffc8 !important;
-  font-family: ui-monospace, SFMono-Regular, monospace !important;
-}
-.bpw-composer textarea::placeholder, .bpw-composer input::placeholder,
-[class*="Composer"] input::placeholder, [class*="composer"] input::placeholder {
-  color: rgba(0, 255, 200, 0.3) !important;
-}
-
-/* Send button */
-.bpw-send-button, .bpw-composer button,
-[class*="SendButton"], [class*="Composer"] button, [class*="composer"] button {
-  color: #00ffc8 !important;
-}
-.bpw-send-button svg, [class*="SendButton"] svg,
-[class*="Composer"] button svg, [class*="composer"] button svg {
-  fill: #00ffc8 !important;
-  color: #00ffc8 !important;
-}
-
-/* Quick replies */
-.bpw-quick_reply, [class*="QuickReply"], [class*="choice"] button {
-  background: rgba(0, 255, 200, 0.07) !important;
-  border: 1px solid rgba(0, 255, 200, 0.25) !important;
-  color: #00ffc8 !important;
-  border-radius: 1.25rem !important;
-  font-family: ui-monospace, SFMono-Regular, monospace !important;
-}
-.bpw-quick_reply:hover, [class*="QuickReply"]:hover, [class*="choice"] button:hover {
-  background: rgba(0, 255, 200, 0.15) !important;
-}
-
-/* Branding */
-.bpw-powered, [class*="PoweredBy"], [class*="Branding"], [class*="branding"] {
-  background: rgba(0, 255, 200, 0.02) !important;
-  border-top: 1px solid rgba(0, 255, 200, 0.06) !important;
-  color: rgba(0, 255, 200, 0.25) !important;
-}
-.bpw-powered a, [class*="Branding"] a {
-  color: rgba(0, 255, 200, 0.4) !important;
-}
-
-/* Timestamps */
-.bpw-message-timestamp, [class*="Timestamp"], [class*="timestamp"] {
-  color: rgba(0, 255, 200, 0.2) !important;
-  font-family: ui-monospace, SFMono-Regular, monospace !important;
-}
-
-/* Welcome */
-[class*="BotIntro"] span, [class*="BotIntro"] p,
-[class*="WelcomeMessage"], [class*="welcome"] {
-  color: rgba(0, 255, 200, 0.5) !important;
-}
-
-/* Scrollbar */
-.bpw-layout ::-webkit-scrollbar, .bpw-chat-container::-webkit-scrollbar { width: 4px !important; }
-.bpw-layout ::-webkit-scrollbar-track, .bpw-chat-container::-webkit-scrollbar-track { background: transparent !important; }
-.bpw-layout ::-webkit-scrollbar-thumb, .bpw-chat-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 200, 0.2) !important;
-  border-radius: 4px !important;
 }
