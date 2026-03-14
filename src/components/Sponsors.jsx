@@ -19,7 +19,7 @@ const sponsors = [
 
 const Sponsors = forwardRef((props, ref) => {
   return (
-    <section ref={ref} id="sponsors" className="relative w-full py-16 px-4 sm:px-6 lg:px-8 bg-black overflow-hidden">
+    <section ref={ref} id="sponsors" className="min-h-screen relative w-full py-16 px-4 sm:px-6 lg:px-8 bg-black overflow-hidden">
       {/* LightRays background */}
       <div className="absolute inset-0">
         <LightRays
